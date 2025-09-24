@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Happy 1st Anniversary!!!</title>
 
-  <!-- Styles -->
   <style>
     :root{
-      --beige-1: #f6efe6; /* soft beige */
-      --beige-2: #efe6db; /* slightly deeper */
-      --coffee: #6b3f25;  /* coffee brown text color */
+      --beige-1: #f6efe6;
+      --beige-2: #efe6db;
+      --coffee: #6b3f25;
       --accent: rgba(107,63,37,0.08);
       --dot-size: 14px;
       --dot-active: #8b4f30;
@@ -18,18 +17,14 @@
       --shadow: 0 6px 18px rgba(0,0,0,0.08);
     }
 
-    /* animated soft-gradient background */
     html,body{
       height:100%;
       margin:0;
       font-family: "Times New Roman", Times, serif;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
       background: linear-gradient(120deg, var(--beige-1), var(--beige-2));
       overflow-y: auto;
     }
 
-    /* background animated gradient overlay */
     body::before{
       content:'';
       position:fixed;
@@ -37,7 +32,7 @@
       z-index:-2;
       background: linear-gradient(60deg, rgba(239,230,219,0.75), rgba(252,246,240,0.6) 40%, rgba(241,232,220,0.8) 70%);
       animation: gentleShift 12s linear infinite;
-      filter: blur(18px);
+      filter: blur(14px); /* slightly lighter for performance */
       transform: scale(1.05);
     }
 
@@ -47,26 +42,21 @@
       100% { transform: translateX(-6%) scale(1.03) rotate(-1deg); }
     }
 
-    /* floating heart accents */
+    /* floating hearts */
     .hearts {
       pointer-events:none;
       position:fixed;
       inset:0;
       z-index:0;
-      overflow:visible;
     }
     .heart {
       position:absolute;
       width:18px;
       height:18px;
-      transform: translateY(0) scale(1);
-      opacity: 0.18;
+      opacity:0.18;
       filter: drop-shadow(0 2px 6px rgba(107,63,37,0.06));
-      background: conic-gradient(from 180deg at 50% 50%, #fff0 0deg, #fff0 360deg);
       animation: floatUp linear infinite;
-      color: var(--coffee);
     }
-    /* We'll draw hearts with ::before/::after shapes via CSS */
     .heart::before, .heart::after{
       content:'';
       position:absolute;
@@ -74,10 +64,10 @@
       height:18px;
       background: rgba(107,63,37,0.06);
       border-radius:12px 12px 0 0;
-      transform-origin:center;
+      top:0;
     }
-    .heart::before{ left:0; transform: rotate(-45deg); top:0; }
-    .heart::after{ right:0; transform: rotate(45deg); top:0; }
+    .heart::before{ left:0; transform: rotate(-45deg); }
+    .heart::after{ right:0; transform: rotate(45deg); }
 
     @keyframes floatUp {
       0% { transform: translateY(0) scale(0.9); opacity: 0.18;}
@@ -85,39 +75,11 @@
       100% { transform: translateY(-280px) scale(1.05); opacity: 0; }
     }
 
-    /* main container */
-    .wrap {
-      max-width:900px;
-      margin:48px auto;
-      padding:36px;
-      box-sizing:border-box;
-      position:relative;
-      z-index:2;
-    }
+    .wrap { max-width:900px; margin:48px auto; padding:36px; position:relative; z-index:2; }
+    header { text-align:center; margin-bottom:36px; }
+    h1 { margin:0; font-size:42px; color:var(--coffee); font-style:italic; }
+    .subtitle { margin-top:8px; color:var(--coffee); opacity:0.9; font-style:italic; font-size:18px; }
 
-    header {
-      text-align:center;
-      margin-bottom:36px;
-    }
-
-    h1 {
-      margin:0;
-      font-size:42px;
-      color:var(--coffee);
-      font-style:italic;
-      font-family:"Times New Roman", Times, serif;
-      letter-spacing:0.6px;
-    }
-
-    .subtitle {
-      margin-top:8px;
-      color:var(--coffee);
-      opacity:0.9;
-      font-style:italic;
-      font-size:18px;
-    }
-
-    /* timeline card */
     .card {
       background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.5));
       border-radius:14px;
@@ -126,187 +88,30 @@
       backdrop-filter: blur(6px);
     }
 
-    /* timeline layout */
-    .timeline {
-      position:relative;
-      padding:36px 12px 20px 12px;
-    }
+    .timeline { position:relative; padding:36px 12px 20px 12px; }
+    .timeline .line { height:6px; border-radius:6px; background: linear-gradient(90deg, rgba(107,63,37,0.12), rgba(107,63,37,0.18)); margin:40px 24px; }
+    .line .fill { position:absolute; left:0; top:0; bottom:0; width:0%; background: linear-gradient(90deg, #a56a45, #7b4326); border-radius:6px; transition: width 2s cubic-bezier(.2,.9,.2,1); }
 
-    /* horizontal line drawn with pseudo-element; we'll animate a mask over it */
-    .timeline .line {
-      position:relative;
-      height:6px;
-      border-radius:6px;
-      background: linear-gradient(90deg, rgba(107,63,37,0.12), rgba(107,63,37,0.18));
-      margin:40px 24px;
-      overflow:visible;
-    }
+    .points { display:flex; justify-content:space-between; margin-top:-10px; padding:0 18px; }
+    .point { text-align:center; transform: translateY(-8px); width:80px; }
+    .dot { width:var(--dot-size); height:var(--dot-size); border-radius:50%; background:rgba(107,63,37,0.14); border:2px solid rgba(107,63,37,0.2); margin:0 auto 10px auto; }
+    .dot.active { background: var(--dot-active); transform: scale(1.25); box-shadow: 0 0 12px rgba(139,79,48,0.4); }
+    .point small { display:block; color:var(--coffee); font-style:italic; font-size:14px; }
 
-    /* progress fill that grows from left to right on load */
-    .line .fill {
-      position:absolute;
-      left:0;
-      top:0;
-      bottom:0;
-      width:0%;
-      background: linear-gradient(90deg, #a56a45, #7b4326);
-      border-radius:6px;
-      transition: width 2s cubic-bezier(.2,.9,.2,1);
-      box-shadow: 0 6px 16px rgba(123,67,38,0.12);
-    }
+    .timeline-caption { text-align:center; margin-top:22px; font-size:18px; color:var(--coffee); font-style:italic; }
 
-    /* timeline points */
-    .points {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      position:relative;
-      margin-top:-10px;
-      padding:0 18px;
-    }
+    footer { margin:72px 0 120px; text-align:center; color:var(--coffee); font-style:italic; opacity:0.9; }
 
-    .point {
-      position:relative;
-      text-align:center;
-      transform: translateY(-8px);
-      width:80px;
-      flex: 0 0 80px;
-    }
-
-    .dot {
-      width:var(--dot-size);
-      height:var(--dot-size);
-      border-radius:50%;
-      background:rgba(107,63,37,0.14);
-      border:2px solid rgba(107,63,37,0.2);
-      margin:0 auto 10px auto;
-      display:block;
-      position:relative;
-      transition: transform .35s ease, background .35s ease;
-    }
-
-    .dot.active {
-      background: var(--dot-active);
-      box-shadow: 0 6px 18px rgba(139,79,48,0.18);
-      transform: scale(1.25);
-    }
-
-    .point small {
-      display:block;
-      color:var(--coffee);
-      font-style:italic;
-      font-size:14px;
-      margin-top:4px;
-      line-height:1.2;
-    }
-
-    /* month labels */
-    .meta {
-      text-align:center;
-      margin-top:14px;
-      color:var(--coffee);
-      font-style:italic;
-    }
-
-    /* animated timeline entry markers (pulses) */
-    .dot::after{
-      content:'';
-      position:absolute;
-      inset: -8px;
-      border-radius:50%;
-      pointer-events:none;
-      opacity:0;
-    }
-
-    .dot.active::after{
-      animation: pulse 1400ms infinite;
-      background: radial-gradient(circle, rgba(139,79,48,0.12), rgba(139,79,48,0));
-      opacity:1;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(0.6); opacity:0.6; }
-      100% { transform: scale(1.9); opacity:0; }
-    }
-
-    /* small caption below timeline */
-    .timeline-caption {
-      text-align:center;
-      margin-top:22px;
-      font-size:18px;
-      color:var(--coffee);
-      font-style:italic;
-    }
-
-    /* letter section */
-    .spacer {
-      height:60vh;
-    }
-
-    .letter-wrap {
-      max-width:720px;
-      margin:48px auto;
-      padding:28px;
-      border-radius:12px;
-      box-shadow:var(--shadow);
-      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.75));
-      transform: translateY(24px) scale(0.99);
-      opacity:0;
-      transition: all 800ms cubic-bezier(.2,.9,.2,1);
-      will-change: transform, opacity;
-      border:1px solid rgba(107,63,37,0.06);
-    }
-
-    .letter-wrap.revealed {
-      transform: translateY(0) scale(1);
-      opacity:1;
-    }
-
-    .letter {
-      font-size:20px;
-      color:var(--coffee);
-      line-height:1.65;
-      font-style:italic;
-      white-space:pre-wrap;
-    }
-
-    .cheesy {
-      margin-top:18px;
-      font-size:18px;
-      color:var(--coffee);
-      font-style:italic;
-      opacity:0.95;
-    }
-
-    .toast {
-      margin-top:20px;
-      text-align:center;
-      font-size:16px;
-      opacity:0.9;
-    }
-
-    /* footer */
-    footer {
-      margin:72px 0 120px;
-      text-align:center;
-      color:var(--coffee);
-      font-style:italic;
-      opacity:0.9;
-    }
-
-    /* small responsive tweaks */
     @media (max-width:680px){
-      .point { width:56px; flex:0 0 56px; }
+      .point { width:56px; }
       h1 { font-size:32px; }
-      .letter { font-size:18px; }
       .wrap { padding:18px; }
     }
   </style>
 </head>
 <body>
-
-  <!-- subtle decorative hearts (randomly positioned by JS) -->
-  <div class="hearts" id="hearts"></div>
+  <!-- decorative hearts -->
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
 
   <div class="wrap">
     <header>
@@ -315,34 +120,30 @@
     </header>
 
     <section class="card" aria-labelledby="timeline-heading" role="region">
-      <h2 id="timeline-heading" style="display:none">Timeline</h2>
+      <h2 id="timeline-heading">Our Journey</h2>
 
-      <div class="timeline" aria-hidden="false">
-        <div class="line" aria-hidden="true">
-          <div class="fill" id="lineFill" role="presentation"></div>
+      <div class="timeline">
+        <div class="line">
+          <div class="fill" id="lineFill"></div>
         </div>
 
-        <div class="points" role="list" aria-label="Milestones">
+        <div class="points" role="list">
           <div class="point" role="listitem">
             <span class="dot" data-pos="0"></span>
             <small>0 months</small>
           </div>
-
           <div class="point" role="listitem">
             <span class="dot" data-pos="25"></span>
             <small>3 months</small>
           </div>
-
           <div class="point" role="listitem">
             <span class="dot" data-pos="50"></span>
             <small>6 months</small>
           </div>
-
           <div class="point" role="listitem">
             <span class="dot" data-pos="75"></span>
             <small>9 months</small>
           </div>
-
           <div class="point" role="listitem">
             <span class="dot" data-pos="100"></span>
             <small>forever</small>
@@ -350,104 +151,64 @@
         </div>
 
         <div class="timeline-caption">
-          <div style="font-weight:700; font-size:20px; margin-bottom:8px; color:var(--coffee); font-style:italic;">
+          <div style="font-weight:700; font-size:20px; margin-bottom:8px;">
             we've come so far and i am so proud of us :) 
           </div>
-          <div class="meta">1 year down, and forever to go (yes, it's a threat hahaha) </div>
+          <div class="meta">1 year down, and forever to go (yes, it's a threat hahaha)</div>
         </div>
       </div>
     </section>
 
-    <!-- spacer so user scrolls down -->
-    <div class="spacer" aria-hidden="true"></div>
-
-    <!-- letter revealed on scroll -->
-    <section class="letter-wrap" id="letter">
-      <div class="letter">
-        i'm so glad we've come this far. i love you to the moon and back. to more years to come 🥂
-
-        <div class="cheesy">
-          you're my morning coffee and midnight moonlight — the sweetest routine i never knew i needed.<br>
-          every laugh, every silly dance in the kitchen, every "are you okay?" — i treasure them all.<br>
-          thanks for being my person, my home, and my best friend.
-        </div>
-
-        <div class="cheesy" style="margin-top:14px; font-weight:700;">
-          here's to more inside jokes, more warm hands to hold, and a thousand more anniversaries. i love you endlessly. ❤️
-        </div>
-
-        <div class="toast">— forever yours, with all my heart</div>
-      </div>
-    </section>
+    <!-- optional space to add photo memories later -->
+    <!-- <section class="memories">
+       <img src="photo1.jpg" alt="memory 1">
+       <img src="photo2.jpg" alt="memory 2">
+     </section> -->
 
     <footer>one year • one love • infinite memories</footer>
   </div>
 
-  <!-- scripts -->
   <script>
-    /* helper to create soft floating hearts at random places */
+    /* floating hearts */
     (function createHearts(){
       const container = document.getElementById('hearts');
-      const colors = ['rgba(107,63,37,0.06)','rgba(139,79,48,0.07)','rgba(107,63,37,0.08)'];
-      const count = 12;
+      const count = window.innerWidth < 680 ? 6 : 12; // fewer on mobile
       for(let i=0;i<count;i++){
         const h = document.createElement('span');
         h.className = 'heart';
-        // random x position, random delay and duration
         const left = Math.random()*100;
         const bottom = Math.random()*20 + 2;
         const delay = Math.random()*6;
         const dur = 6 + Math.random()*8;
         h.style.left = left + '%';
         h.style.bottom = bottom + 'px';
-        h.style.opacity = (0.08 + Math.random()*0.14).toFixed(2);
         h.style.animationDuration = dur + 's';
         h.style.animationDelay = delay + 's';
-        h.style.transform = 'translateY(0) scale(' + (0.7 + Math.random()*0.5) + ')';
         container.appendChild(h);
       }
     })();
 
-    /* timeline fill animation on load, and activate dots sequentially */
+    /* timeline animation */
     window.addEventListener('load', function(){
       const fill = document.getElementById('lineFill');
-      // animate to 100% over 2 seconds
-      requestAnimationFrame(() => {
-        fill.style.width = '100%';
-      });
-
-      // activate the dots in sequence to create a "timeline reveal" feel
       const dots = Array.from(document.querySelectorAll('.dot'));
+      requestAnimationFrame(() => { fill.style.width = '100%'; });
+
       dots.forEach((d, idx) => {
         setTimeout(()=> d.classList.add('active'), 300 + idx*380);
       });
 
-      // small confetti-like quick "pulse" on the final dot after the fill completes
+      // sync final dot glow with fill completion
       setTimeout(()=> {
         const final = dots[dots.length-1];
         final.classList.add('active');
-      }, 1700);
+      }, 2000);
     });
 
-    /* Reveal letter on scroll (IntersectionObserver) */
-    (function(){
-      const letterWrap = document.getElementById('letter');
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if(entry.isIntersecting){
-            letterWrap.classList.add('revealed');
-          }
-        });
-      }, { root: null, threshold: 0.25 });
-      observer.observe(letterWrap);
-    })();
-
-    /* Accessibility: let user press 'T' to jump to timeline, 'L' to letter */
+    /* keyboard navigation */
     document.addEventListener('keydown', (e) => {
       if(e.key.toLowerCase() === 't') {
         document.querySelector('.timeline').scrollIntoView({behavior:'smooth', block:'center'});
-      } else if(e.key.toLowerCase() === 'l') {
-        document.getElementById('letter').scrollIntoView({behavior:'smooth', block:'center'});
       }
     });
   </script>
